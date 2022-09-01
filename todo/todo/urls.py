@@ -16,13 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path
-from todolist.views import ProjectAPIView
+from todolist.views import *
+from rest_framework import routers
 
+router = routers.SimpleRouter()
+router.register(r'todolist', ProjectViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/todolist/project/', ProjectAPIView.as_view()),
-    path('api/v1/todolist/project/<int:pk>/', ProjectAPIView.as_view()),
+    #path('api/v1/', include(router.urls)),
+    path('api/v1/todolist/project/', ProjectViewSet.as_view({'get': 'list'})),
+    # path('api/v1/todolist/project/<int:pk>/', ProjectViewSet.as_view({'put': 'update'})),
 
 
 ]
