@@ -23,5 +23,5 @@ const ProjectList = ({items}) => {
         </table>
     )
 }
-export default ProjectList
+export default ProjectList;
 
