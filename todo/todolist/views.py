@@ -11,15 +11,23 @@ from rest_framework import mixins
 from .models import Project, User, UserProject, ToDo
 from .serializer import ProjectSerializer, UserSerializer, UserProjectSerializer, ToDoSerializer
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+import requests
+
 
 from collections import namedtuple
 
 class ProjectViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+
+
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
+
 class UserViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    permission_classes = IsAuthenticated
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
